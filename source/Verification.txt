@@ -1,0 +1,29 @@
+exec (acomp a) (0,s,[]) == (length (acomp a), s, [aval a s])
+
+Proof:
+--TODO Task 4
+exec (acomp (a)) (0,s,[]) == (length (acomp a), s, [aval a s])
+[applying acomp a] = exec ([LOAD a]) (0,s,[]) 			| [applying acomp (a)] = (length ([LOAD a]), s, [aval a s])
+[applying exec] = (1,s,[a])					| [applying length([acomp a])] = (1,s,[aval a s])
+								| [applying '[aval a s]'] = (1,s,[a])
+(1,s,[a])                                                       == (1,s,[a])
+
+upon brief inspection one can see clearly that both sides of the equation have been resolved to the same thing, meaning that the original
+equations are equivilant.
+
+
+Proof for acomp(a):
+acomp (a) resolves to either [LOADI a] or [LOAD a]
+For the purposes of the proof we can consider these the same due to the fact that they will load a value associated with 'a' from 's'([LOAD a]).
+or the value will equate to 'a', as 'a' will have been a numerical input ([LOADI a]). 
+For the purpose of the exercise I will replace acomp (a) with [LOAD a].
+
+Proof for exec ([LOAD a]) (0,s,[]):
+[LOAD a] (0,s,[]) resolves to the config (1,s,[a])
+When LOAD is called an integer value is stored in the stack (the value associated with 'a') and the counter is incremented by one (0 -> 1).
+If LOADI was called 'a' itself would have been stored in the stack.
+The exec function takes a list of instructions (like LOAD) and executes them accordingly.
+
+Proof for [aval a s]:
+[aval a s] resolves to an integer value ['a'] or the integer value associated with the variable name 'a' in 's'. 
+'aval' is used to compute the mathematical functions used in the program. It either returns a value or the sum of two (or more).
